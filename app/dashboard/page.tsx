@@ -1,0 +1,24 @@
+export default function Dashboard() {
+  return (
+    <div>
+      <h1 className="text-2xl font-bold mb-6">Dashboard 👋</h1>
+
+      <div className="grid md:grid-cols-3 gap-6">
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h2>Total Earnings</h2>
+          <p className="text-xl font-bold text-green-600">₹0</p>
+        </div>
+
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h2>Total Referrals</h2>
+          <p className="text-xl font-bold">0</p>
+        </div>
+
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h2>Courses Enrolled</h2>
+          <p className="text-xl font-bold">0</p>
+        </div>
+      </div>
+    </div>
+  );
+}
