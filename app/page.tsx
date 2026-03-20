@@ -1,12 +1,23 @@
+import Hero from "@/components/Hero";
+import Stats from "@/components/Stats";
+import CoursesSection from "@/components/CoursesSection";
+import ReferSection from "@/components/ReferSection";
+import Features from "@/components/Features";
+import Testimonials from "@/components/Testimonials";
+import CTA from "@/components/CTA";
+import Footer from "@/components/Footer";
+
 export default function Home() {
   return (
-    <div className="text-center mt-20">
-      <h1 className="text-4xl font-bold text-blue-600">
-        DreamsHelix 🚀
-      </h1>
-      <p className="mt-4">
-        Learn Python & Earn Money
-      </p>
-    </div>
+    <>
+      <Hero />
+      <Stats />
+      <CoursesSection />
+      <ReferSection />
+      <Features />
+      <Testimonials />
+      <CTA />
+      <Footer />
+    </>
   );
 }
