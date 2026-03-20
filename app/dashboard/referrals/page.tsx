@@ -1,3 +1,5 @@
+"use client";
+
 export default function Referrals() {
   const referralLink = "https://dreamshelix.com?ref=USER123";
 
