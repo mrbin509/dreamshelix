@@ -1,38 +1,38 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { loginUser } from "../../lib/api";
+"use client"; // Required for Next.js app folder to use client-side React
 
-export default function LoginPage() {
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { registerUser } from "../../lib/api";
+
+export default function RegisterPage() {
   const router = useRouter();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     setError(null);
 
-    // 1️⃣ Basic validation
-    if (!email || !password) {
-      setError("Email and password are required.");
+    if (!name || !email || !password) {
+      setError("All fields are required.");
       return;
     }
 
     setLoading(true);
     try {
-      const res = await loginUser({ email, password });
+      const res = await registerUser({ name, email, password });
 
       if (res.token) {
-        // 2️⃣ Save JWT token to localStorage
+        // Save JWT token and user info
         localStorage.setItem("token", res.token);
+        if (res.user) localStorage.setItem("user", JSON.stringify(res.user));
 
-        // 3️⃣ Optional: Save user info
-        localStorage.setItem("user", JSON.stringify(res.user));
-
-        // 4️⃣ Redirect to wallet page after login
+        // Redirect to wallet page after registration
         router.push("/wallet");
       } else {
-        setError(res.message || "Login failed. Check credentials.");
+        setError(res.message || "Registration failed. Try again.");
       }
     } catch (err) {
       console.error(err);
@@ -44,9 +44,20 @@ export default function LoginPage() {
 
   return (
     <div style={{ maxWidth: "400px", margin: "50px auto", padding: "20px", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <h1 style={{ textAlign: "center" }}>Login to DreamsHelix</h1>
+      <h1 style={{ textAlign: "center" }}>Register for DreamsHelix</h1>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
+
+      <div style={{ marginBottom: "10px" }}>
+        <label>Name</label>
+        <input
+          type="text"
+          placeholder="Enter your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={{ width: "100%", padding: "8px", marginTop: "4px" }}
+        />
+      </div>
 
       <div style={{ marginBottom: "10px" }}>
         <label>Email</label>
@@ -71,7 +82,7 @@ export default function LoginPage() {
       </div>
 
       <button
-        onClick={handleLogin}
+        onClick={handleRegister}
         disabled={loading}
         style={{
           width: "100%",
@@ -83,11 +94,11 @@ export default function LoginPage() {
           cursor: "pointer",
         }}
       >
-        {loading ? "Logging in..." : "Login"}
+        {loading ? "Registering..." : "Register"}
       </button>
 
       <p style={{ marginTop: "10px", textAlign: "center" }}>
-        Don't have an account? <a href="/register" style={{ color: "blue" }}>Register</a>
+        Already have an account? <a href="/login" style={{ color: "blue" }}>Login</a>
       </p>
     </div>
   );
