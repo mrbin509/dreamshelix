@@ -1,5 +1,5 @@
 // next.config.ts
-import { defineConfig } from "next";
+import  defineConfig  from "next";
 
 export default defineConfig({
   reactStrictMode: true,
@@ -8,3 +8,4 @@ export default defineConfig({
     NEXT_PUBLIC_RAZORPAY_KEY: "rzp_test_SUDCQjRBfMW6qv",
   },
 });
+
